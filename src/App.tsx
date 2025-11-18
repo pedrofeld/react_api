@@ -1,5 +1,5 @@
-import FindCEP from "./components/CEP"
-import { FindRepositories } from "./components/Github"
+import FindCEP from "./components/FindCEP"
+import FindRepositories from "./components/FindRepositories"
 
 function App() {
   return (

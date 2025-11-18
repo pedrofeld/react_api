@@ -6,7 +6,7 @@ interface IRepository {
     name: string
 }
 
-export function FindRepositories() {
+export default function FindRepositories() {
     const [user, setUser] = useState('');
     const [repositories, setRepositories] = useState<IRepository[]>([]);
 

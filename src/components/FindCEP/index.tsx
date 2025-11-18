@@ -8,7 +8,7 @@ interface IAddress {
   uf: string
 }
 
-function FindCEP() {
+export default function FindCEP() {
   const [cep, setCep] = useState('');
   const [address, setAddress] = useState<IAddress | null>(null);
 
@@ -45,5 +45,3 @@ function FindCEP() {
     </>
   )
 }
-
-export default FindCEP
