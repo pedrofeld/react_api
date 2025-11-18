@@ -9,7 +9,7 @@ interface IAddress {
 }
 
 function FindCEP() {
-  const [cep, steCep] = useState('');
+  const [cep, setCep] = useState('');
   const [address, setAddress] = useState<IAddress | null>(null);
 
   async function fetchAddress(): Promise<void> {
@@ -29,7 +29,7 @@ function FindCEP() {
       <input 
         type="text" 
         value={cep} 
-        onChange={(event) => steCep(event.target.value)} 
+        onChange={(event) => setCep(event.target.value)} 
         placeholder="Digita o CEP desejado"
       />
       <button onClick={fetchAddress}>Pesquisar</button>
