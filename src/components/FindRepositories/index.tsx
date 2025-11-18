@@ -58,7 +58,11 @@ export default function FindRepositories() {
             <button onClick={fetchRepositories}>Pesquisar</button>
             
             {repositories.map(repository => (
-                <p key={repository.id}>{repository.name}</p>
+                <p key={repository.id}>
+                    <a href={`https://github.com/${user}/${repository.name}`} target="blank">
+                        {repository.name}
+                    </a>
+                </p>
             ))}
         </>
     )
