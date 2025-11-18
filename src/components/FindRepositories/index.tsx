@@ -8,15 +8,29 @@ interface IRepository {
 
 export default function FindRepositories() {
     const [user, setUser] = useState('');
+    const [repoName, setRepoName] = useState('');
     const [repositories, setRepositories] = useState<IRepository[]>([]);
 
     async function fetchRepositories() {
         try {
-            const response = await axios.get(
-                `https://api.github.com/users/${user}/repos`
-            )
-
-            setRepositories(response.data as IRepository[]);
+            let response;
+            
+            if (user && repoName){
+                response = await axios.get(
+                    `https://api.github.com/repos/${user}/${repoName}`
+                );
+                setRepositories([response.data]);
+            } else if (user) {
+                response = await axios.get(
+                    `https://api.github.com/users/${user}/repos`
+                );
+                setRepositories(response.data);
+            } else if (repoName) {
+                response = await axios.get(
+                    `https://api.github.com/search/repositories?q=${repoName}`
+                );
+                setRepositories(response.data.items);
+            }   
         } catch {
             throw new Error('Erro ao buscar endereço')
         }
@@ -25,14 +39,24 @@ export default function FindRepositories() {
 
     return (
         <>
-            <h1>Pesquise o repositório pelo usuário</h1>
+            <h1>Pesquise repositórios</h1>
+
             <input 
                 type="text" 
                 value={user} 
                 onChange={(event) => setUser(event.target.value)} 
-                placeholder="Digita o usuário desejado"
+                placeholder="Nome do usuário"
             />
+
+            <input 
+                type="text" 
+                value={repoName}
+                onChange={(event) => setRepoName(event.target.value)}
+                placeholder="Nome do repositório"
+            />
+
             <button onClick={fetchRepositories}>Pesquisar</button>
+            
             {repositories.map(repository => (
                 <p key={repository.id}>{repository.name}</p>
             ))}
